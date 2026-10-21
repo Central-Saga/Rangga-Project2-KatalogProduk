@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderTrackingController;
 use App\Http\Controllers\TestimonialController;
@@ -57,6 +58,13 @@ Route::post('/testimoni', [TestimonialController::class, 'store'])->name('testim
 
 /*
 |--------------------------------------------------------------------------
+| Dokumentasi (PRD & ERD)
+|--------------------------------------------------------------------------
+*/
+Route::get('/dokumentasi', [DocumentationController::class, 'index'])->name('docs');
+
+/*
+|--------------------------------------------------------------------------
 | Autentikasi Admin
 |--------------------------------------------------------------------------
 */
@@ -95,4 +103,5 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::patch('testimoni/{testimonial}/approve', [AdminTestimonialController::class, 'approve'])->name('testimonials.approve');
     Route::delete('testimoni/{testimonial}', [AdminTestimonialController::class, 'destroy'])->name('testimonials.destroy');
 });
+
 

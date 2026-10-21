@@ -150,6 +150,7 @@ FK penting: `products.category_id → categories` (cascade), `order_items.order_
 | GET/POST | `/lacak-pesanan` | Lacak pesanan |
 | GET | `/pesanan/{order_code}` | Detail/status pesanan |
 | POST | `/testimoni` | Kirim testimoni |
+| GET | `/dokumentasi` | Dokumentasi PRD & ERD |
 | GET/POST | `/login` · POST `/logout` | Auth admin |
 | — | `/admin/*` | Dashboard (protected): `produk`, `kategori`, `pesanan`, `laporan`, `testimoni` |
 
@@ -173,12 +174,18 @@ pelacakan pesanan, proteksi dashboard, login, CRUD kategori/produk, ubah status 
 | ![Landing](docs/screenshots/01-landing.png) | ![Dashboard](docs/screenshots/09-dashboard.png) |
 
 Screenshot lengkap ada di [`docs/screenshots/`](docs/screenshots): katalog, detail produk,
-keranjang, checkout, lacak pesanan, kelola produk, kelola kategori, kelola pesanan, laporan, testimoni.
+keranjang, checkout, lacak pesanan, kelola produk, kelola kategori, kelola pesanan, laporan, testimoni,
+dan dokumentasi (PRD & ERD).
 
 ---
 
-## Deploy ke VPS (contoh)
+## Deploy
 
+### Railway (disarankan)
+Proyek sudah menyertakan `Dockerfile`, `docker-entrypoint.sh`, dan `railway.json`.
+Panduan lengkap: [`docs/DEPLOY-RAILWAY.md`](docs/DEPLOY-RAILWAY.md).
+
+### VPS (contoh)
 ```bash
 composer install --no-dev --optimize-autoloader
 npm ci && npm run build
@@ -188,6 +195,17 @@ php artisan migrate --force
 php artisan config:cache && php artisan route:cache && php artisan view:cache
 ```
 Arahkan document root web server ke folder `public/`.
+
+---
+
+## Dokumentasi
+
+Halaman **Dokumentasi (PRD & ERD)** dapat dibuka langsung di website: **`/dokumentasi`**.
+
+Berkas terkait:
+- [`docs/PRD.md`](docs/PRD.md) — Product Requirements Document
+- [`docs/ERD.md`](docs/ERD.md) — Entity Relationship Diagram & relasi tabel
+- [`docs/DEPLOY-RAILWAY.md`](docs/DEPLOY-RAILWAY.md) — panduan deploy
 
 ---
 

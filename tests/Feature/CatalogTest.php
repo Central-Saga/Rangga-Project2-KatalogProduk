@@ -21,6 +21,14 @@ class CatalogTest extends TestCase
         $this->get('/')->assertOk()->assertSee('Katalog Produk');
     }
 
+    public function test_documentation_page_loads_prd_and_erd(): void
+    {
+        $this->get('/dokumentasi')
+            ->assertOk()
+            ->assertSee('Product Requirements Document')
+            ->assertSee('ERD');
+    }
+
     public function test_catalog_page_loads_with_filters(): void
     {
         $this->get('/produk')->assertOk();
