@@ -14,11 +14,10 @@ storage/framework/cache/*
 storage/framework/sessions/*
 storage/framework/views/*
 storage/*.key
+bootstrap/cache/*
 database/*.sqlite
 database/*.sqlite-journal
 docs/screenshots
 tests
 README.md
-Dockerfile
-docker-entrypoint.sh
 .dockerignore
