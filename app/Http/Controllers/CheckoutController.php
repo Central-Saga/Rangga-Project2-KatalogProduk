@@ -13,6 +13,10 @@ class CheckoutController extends Controller
 {
     public function create()
     {
+        if (! auth()->check()) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu untuk melanjutkan checkout.');
+        }
+
         $cart = Cart::detailed();
 
         if (empty($cart['items'])) {

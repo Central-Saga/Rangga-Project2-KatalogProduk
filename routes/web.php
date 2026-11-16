@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController; // <-- TAMBAHAN BARU
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\CheckoutController;
@@ -65,12 +66,17 @@ Route::get('/dokumentasi', [DocumentationController::class, 'index'])->name('doc
 
 /*
 |--------------------------------------------------------------------------
-| Autentikasi Admin
+| Autentikasi (Login & Register)
 |--------------------------------------------------------------------------
 */
 Route::middleware('guest')->group(function () {
+    // Login (Admin & Pelanggan)
     Route::get('/login', [LoginController::class, 'create'])->name('login');
     Route::post('/login', [LoginController::class, 'store']);
+
+    // Register (Hanya Pelanggan Baru)
+    Route::get('/daftar', [RegisterController::class, 'create'])->name('register');
+    Route::post('/daftar', [RegisterController::class, 'store']);
 });
 
 Route::post('/logout', [LoginController::class, 'destroy'])
@@ -103,5 +109,3 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::patch('testimoni/{testimonial}/approve', [AdminTestimonialController::class, 'approve'])->name('testimonials.approve');
     Route::delete('testimoni/{testimonial}', [AdminTestimonialController::class, 'destroy'])->name('testimonials.destroy');
 });
-
-

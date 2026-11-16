@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Katalog Produk') &middot; {{ config('app.name') }}</title>
+    <title>@yield('title', 'entral saga shopping                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ') &middot; {{ config('app.name') }}</title>
     <meta name="description" content="Katalog produk online dengan sistem pesanan dan pelacakan status pesanan.">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -53,7 +53,12 @@
                 @auth
                     <a href="{{ route('admin.dashboard') }}" class="rounded-xl bg-slate-900 px-3.5 py-2 text-sm font-semibold text-white transition hover:bg-slate-700">Dashboard</a>
                 @else
-                    <a href="{{ route('login') }}" class="rounded-xl bg-slate-900 px-3.5 py-2 text-sm font-semibold text-white transition hover:bg-slate-700">Masuk</a>
+                    <div class="flex items-center gap-2">
+                        <a href="{{ route('login') }}" class="rounded-xl bg-slate-900 px-3.5 py-2 text-sm font-semibold text-white transition hover:bg-slate-700">Masuk</a>
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="rounded-xl bg-slate-900 px-3.5 py-2 text-sm font-semibold text-white transition hover:bg-slate-700">Daftar</a>
+                        @endif
+                    </div>
                 @endauth
             </div>
         </nav>
