@@ -1,3 +1,28 @@
-node_modules
-vendor
+# Dependencies
+/node_modules
+/vendor
+/public/build
+/public/hot
+/public/storage
+
+# Environment
 .env
+.env.backup
+.env.production
+!.env.example
+
+# Application data
+/database/*.sqlite
+/database/*.sqlite-journal
+/storage/*.key
+/storage/pail
+/bootstrap/cache/*.php
+.phpunit.result.cache
+.phpunit.cache
+
+# Logs & editor
+*.log
+.idea
+.vscode
+.DS_Store
+Thumbs.db
