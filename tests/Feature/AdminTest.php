@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\Category;
 use App\Models\Order;
-use App\Models\Product;
 use App\Models\Testimonial;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -26,6 +25,27 @@ class AdminTest extends TestCase
     public function test_guest_is_redirected_to_login(): void
     {
         $this->get('/admin')->assertRedirect(route('login'));
+    }
+
+    public function test_non_admin_customer_cannot_open_admin_area(): void
+    {
+        $customer = User::where('email', 'pelanggan@katalog.test')->firstOrFail();
+
+        $this->actingAs($customer)->get('/admin')->assertForbidden();
+        $this->actingAs($customer)->get('/admin/produk')->assertForbidden();
+        $this->actingAs($customer)->post('/admin/kategori', ['name' => 'Tidak Boleh'])->assertForbidden();
+    }
+
+    public function test_customer_login_redirects_to_home_not_admin(): void
+    {
+        $customer = User::where('email', 'pelanggan@katalog.test')->firstOrFail();
+
+        $this->post('/login', [
+            'email' => 'pelanggan@katalog.test',
+            'password' => 'password',
+        ])->assertRedirect(route('home'));
+
+        $this->assertAuthenticatedAs($customer);
     }
 
     public function test_admin_can_login_with_valid_credentials(): void
@@ -93,7 +113,7 @@ class AdminTest extends TestCase
         ]);
 
         $this->actingAs($this->admin)
-            ->patch('/admin/pesanan/' . $order->order_code . '/status', ['status' => 'diproses'])
+            ->patch('/admin/pesanan/'.$order->order_code.'/status', ['status' => 'diproses'])
             ->assertRedirect(route('admin.orders.show', $order->order_code));
 
         $this->assertSame('diproses', $order->fresh()->status);
@@ -109,7 +129,7 @@ class AdminTest extends TestCase
         ]);
 
         $this->actingAs($this->admin)
-            ->patch('/admin/testimoni/' . $testimonial->id . '/approve')
+            ->patch('/admin/testimoni/'.$testimonial->id.'/approve')
             ->assertRedirect();
 
         $this->assertTrue($testimonial->fresh()->is_approved);

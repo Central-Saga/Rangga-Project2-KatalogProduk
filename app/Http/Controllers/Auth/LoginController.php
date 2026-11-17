@@ -26,8 +26,13 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('admin.dashboard'))
-            ->with('success', 'Selamat datang, ' . Auth::user()->name . '!');
+        if (Auth::user()->is_admin) {
+            return redirect()->intended(route('admin.dashboard'))
+                ->with('success', 'Selamat datang, '.Auth::user()->name.'!');
+        }
+
+        return redirect()->intended(route('home'))
+            ->with('success', 'Selamat datang, '.Auth::user()->name.'!');
     }
 
     public function destroy(Request $request)
