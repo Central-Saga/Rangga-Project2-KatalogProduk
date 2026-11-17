@@ -1,5 +1,7 @@
 # Katalog Produk + Sistem Pesanan Online
 
+[![CI](https://github.com/Central-Saga/Rangga-Project2-KatalogProduk/actions/workflows/ci.yml/badge.svg)](https://github.com/Central-Saga/Rangga-Project2-KatalogProduk/actions/workflows/ci.yml)
+
 Website **full-stack** katalog produk dengan sistem pesanan **tanpa WhatsApp** — semua alur
 (belanja, checkout, pelacakan pesanan) dilakukan **lewat website** dan tersimpan di database.
 
@@ -102,12 +104,16 @@ Buka **http://localhost:8000**
 > Tip saat development: `php artisan serve` + `npm run dev` (hot reload). Ada juga
 > `composer dev` untuk menjalankan server, queue, log, dan Vite sekaligus.
 
-### Akun Admin Demo
-| Email | Password |
-|---|---|
-| `admin@katalog.test` | `password` |
+### Akun Demo
+| Peran | Email | Password | Akses |
+|---|---|---|---|
+| Admin | `admin@katalog.test` | `password` | `/admin` (dashboard, CRUD, laporan) |
+| Pelanggan | `pelanggan@katalog.test` | `password` | katalog, keranjang, checkout, lacak pesanan |
 
-Login: <http://localhost:8000/login> → diarahkan ke `/admin`.
+Login: <http://localhost:8000/login> → admin diarahkan ke `/admin`, pelanggan kembali ke beranda.
+
+> Checkout dapat dilakukan tanpa login (data pemesan diisi pada form). Akun pelanggan **tidak**
+> bisa membuka `/admin` — area admin dilindungi middleware `auth` + `admin` (`is_admin`).
 
 ---
 
@@ -159,11 +165,23 @@ FK penting: `products.category_id → categories` (cascade), `order_items.order_
 ## Testing
 
 ```bash
-php artisan test
+php artisan test          # 22 test, 63 assertion
+vendor/bin/pint --test    # cek gaya kode (Laravel Pint)
 ```
 
 Mencakup: halaman katalog, detail produk, validasi checkout, pembuatan pesanan + pengurangan stok,
-pelacakan pesanan, proteksi dashboard, login, CRUD kategori/produk, ubah status pesanan, dan approval testimoni.
+pelacakan pesanan, proteksi dashboard (guest → login, pelanggan → 403, admin → 200), login,
+CRUD kategori/produk, ubah status pesanan, dan approval testimoni.
+
+### CI
+Workflow [`.github/workflows/ci.yml`](.github/workflows/ci.yml) berjalan pada setiap push/PR ke
+`main`: **Pint → PHPUnit (22 test) → Vite build** dengan PHP 8.2 dan Node 20 (sama dengan Dockerfile).
+
+### Keamanan
+- Password di-hash dengan bcrypt; `is_admin` tidak mass-assignable (tidak bisa dieskalasi lewat form).
+- Halaman admin memakai middleware `auth` + `admin`; otorisasi ditegakkan di server, bukan hanya UI.
+- Seluruh input divalidasi lewat FormRequest; upload gambar dibatasi tipe & ukuran.
+- `.env` tidak di-commit; kredensial demo hanya untuk pengembangan.
 
 ---
 
