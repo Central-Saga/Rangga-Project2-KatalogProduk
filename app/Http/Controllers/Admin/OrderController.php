@@ -45,6 +45,6 @@ class OrderController extends Controller
         $order->update(['status' => $request->validated()['status']]);
 
         return redirect()->route('admin.orders.show', $order->order_code)
-            ->with('success', 'Status pesanan berhasil diperbarui menjadi "' . $order->status_label . '".');
+            ->with('success', 'Status pesanan berhasil diperbarui menjadi "'.$order->status_label.'".');
     }
 }

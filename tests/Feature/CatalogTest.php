@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -39,7 +40,7 @@ class CatalogTest extends TestCase
     {
         $product = Product::active()->firstOrFail();
 
-        $this->get('/produk/' . $product->slug)
+        $this->get('/produk/'.$product->slug)
             ->assertOk()
             ->assertSee($product->name);
     }
@@ -49,7 +50,7 @@ class CatalogTest extends TestCase
         $product = Product::firstOrFail();
         $product->update(['is_active' => false]);
 
-        $this->get('/produk/' . $product->slug)->assertNotFound();
+        $this->get('/produk/'.$product->slug)->assertNotFound();
     }
 
     public function test_checkout_redirects_when_cart_is_empty(): void
@@ -84,7 +85,7 @@ class CatalogTest extends TestCase
 
         $this->assertSame($initialStock - 2, $product->fresh()->stock);
 
-        $order = \App\Models\Order::firstOrFail();
+        $order = Order::firstOrFail();
         $response->assertRedirect(route('orders.show', $order->order_code));
     }
 
@@ -108,9 +109,9 @@ class CatalogTest extends TestCase
                 'address' => 'Jl. Lacak',
             ]);
 
-        $order = \App\Models\Order::firstOrFail();
+        $order = Order::firstOrFail();
 
-        $this->get('/pesanan/' . $order->order_code)
+        $this->get('/pesanan/'.$order->order_code)
             ->assertOk()
             ->assertSee($order->order_code);
     }

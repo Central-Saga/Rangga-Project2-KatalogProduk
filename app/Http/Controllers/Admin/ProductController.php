@@ -107,10 +107,10 @@ class ProductController extends Controller
             File::makeDirectory($directory, 0775, true, true);
         }
 
-        $filename = 'prod_' . time() . '_' . Str::lower(Str::random(8)) . '.' . strtolower($file->getClientOriginalExtension());
+        $filename = 'prod_'.time().'_'.Str::lower(Str::random(8)).'.'.strtolower($file->getClientOriginalExtension());
         $file->move($directory, $filename);
 
-        return 'uploads/products/' . $filename;
+        return 'uploads/products/'.$filename;
     }
 
     protected function deleteImage(?string $path): void

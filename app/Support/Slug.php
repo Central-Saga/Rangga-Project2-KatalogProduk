@@ -18,7 +18,7 @@ class Slug
                 ->when($ignoreId, fn ($query) => $query->where('id', '!=', $ignoreId))
                 ->exists()
         ) {
-            $slug = $base . '-' . (++$i);
+            $slug = $base.'-'.(++$i);
         }
 
         return $slug;
