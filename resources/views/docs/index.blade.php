@@ -1,6 +1,6 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
-@section('title', 'Dokumentasi — PRD & ERD')
+@section('title', 'Dokumentasi â€” PRD & ERD')
 
 @push('styles')
 <style>
@@ -209,7 +209,7 @@ MERMAID;
             {{-- Quick stats --}}
             <div class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
                 @foreach ([
-                    ['12', 'Fitur', '✅ Selesai'],
+                    ['12', 'Fitur', 'âœ… Selesai'],
                     ['6', 'Tabel DB', 'Relasional'],
                     ['3', 'Relasi', 'One-to-Many'],
                     ['100%', 'Test Coverage', 'Passed'],
@@ -350,10 +350,10 @@ MERMAID;
                 </div>
                 <div class="grid gap-3 sm:grid-cols-2">
                     @foreach ([
-                        ['🎯', 'Katalog Terpusat', 'Menyediakan katalog produk yang mudah ditelusuri dan difilter.'],
-                        ['🛒', 'Pemesanan Langsung', 'Memungkinkan pemesanan langsung di website dengan data tervalidasi.'],
-                        ['🔍', 'Pelacakan Mandiri', 'Memberi pembeli akses mandiri untuk melacak status pesanan.'],
-                        ['📊', 'Dashboard Admin', 'Membantu admin mengelola produk, stok, pesanan, dan laporan.'],
+                        ['ðŸŽ¯', 'Katalog Terpusat', 'Menyediakan katalog produk yang mudah ditelusuri dan difilter.'],
+                        ['ðŸ›’', 'Pemesanan Langsung', 'Memungkinkan pemesanan langsung di website dengan data tervalidasi.'],
+                        ['ðŸ”', 'Pelacakan Mandiri', 'Memberi pembeli akses mandiri untuk melacak status pesanan.'],
+                        ['ðŸ“Š', 'Dashboard Admin', 'Membantu admin mengelola produk, stok, pesanan, dan laporan.'],
                     ] as [$emoji, $title, $desc])
                         <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:border-indigo-200 hover:shadow-md">
                             <div class="flex items-start gap-3">
@@ -541,12 +541,166 @@ MERMAID;
                     <div class="h-px flex-1 bg-gradient-to-r from-indigo-200 to-transparent"></div>
                 </div>
                 <div class="grid gap-4 sm:grid-cols-2">
+
                     @foreach ([
-                        ['🔒', 'Keamanan', 'Password admin di-hash (bcrypt), halaman admin dilindungi middleware auth, dan seluruh input divalidasi di server.', 'emerald'],
-                        ['⚡', 'Kinerja', 'Query terindeks (slug, order_code), eager loading relasi, serta aset di-bundle Vite.', 'amber'],
-                        ['🎨', 'Usability', 'Antarmuka responsif, navigasi jelas, dan pesan validasi berbahasa Indonesia.', 'sky'],
-                        ['🛡️', 'Konsistensi Data', 'Checkout memakai transaksi database + row locking untuk mencegah stok minus.', 'indigo'],
-                        ['📦', 'Portabilitas', 'SQLite untuk pengembangan, mudah diganti MySQL/PostgreSQL untuk produksi.', 'purple'],
-                        ['🔧', 'Pemeliharaan', 'Struktur MVC Laravel, FormRequest, dan feature test otomatis.', 'rose'],
+                        ['ðŸ”’', 'Keamanan', 'Password di-hash (bcrypt), area admin dilindungi middleware auth + role, dan seluruh input divalidasi di server.', 'emerald'],
+                        ['âš¡', 'Kinerja', 'Query terindeks (slug, order_code), eager loading relasi, serta aset di-bundle Vite.', 'amber'],
+                        ['ðŸŽ¨', 'Usability', 'Antarmuka responsif, navigasi jelas, dan pesan validasi berbahasa Indonesia.', 'sky'],
+                        ['ðŸ›¡ï¸', 'Konsistensi Data', 'Checkout memakai transaksi database + row locking untuk mencegah stok minus.', 'indigo'],
+                        ['ðŸ“¦', 'Portabilitas', 'SQLite untuk pengembangan, mudah diganti MySQL/PostgreSQL untuk produksi.', 'purple'],
+                        ['ðŸ”§', 'Pemeliharaan', 'Struktur MVC Laravel, FormRequest, feature test otomatis, dan CI.', 'rose'],
                     ] as [$emoji, $title, $desc, $color])
-                        <div class="group rounded-2xl border border-s
+                        @php
+                            $badge = match ($color) {
+                                'emerald' => 'bg-emerald-50 text-emerald-700 ring-emerald-200',
+                                'amber' => 'bg-amber-50 text-amber-700 ring-amber-200',
+                                'sky' => 'bg-sky-50 text-sky-700 ring-sky-200',
+                                'indigo' => 'bg-indigo-50 text-indigo-700 ring-indigo-200',
+                                'purple' => 'bg-purple-50 text-purple-700 ring-purple-200',
+                                default => 'bg-rose-50 text-rose-700 ring-rose-200',
+                            };
+                        @endphp
+                        <div class="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:border-indigo-200 hover:shadow-md">
+                            <div class="flex items-start gap-3">
+                                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-xl ring-1 {{ $badge }}">{{ $emoji }}</span>
+                                <div>
+                                    <p class="text-sm font-bold text-slate-900">{{ $title }}</p>
+                                    <p class="mt-1 text-xs leading-relaxed text-slate-500">{{ $desc }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </section>
+
+            {{-- 8. ALUR --}}
+            <section id="alur" class="scroll-mt-24">
+                <div class="mb-4 flex items-center gap-3">
+                    <span class="font-mono text-xs font-bold text-indigo-600">08</span>
+                    <h2 class="text-2xl font-extrabold tracking-tight text-slate-900">Alur Sistem</h2>
+                    <div class="h-px flex-1 bg-gradient-to-r from-indigo-200 to-transparent"></div>
+                </div>
+                <div class="grid gap-4 sm:grid-cols-2">
+                    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                        <p class="flex items-center gap-2 text-sm font-bold text-slate-900">
+                            <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">ðŸ›ï¸</span>
+                            Pembeli (publik)
+                        </p>
+                        <ol class="mt-3 space-y-2 text-xs leading-relaxed text-slate-600">
+                            <li><strong class="text-slate-800">1.</strong> Menelusuri katalog, memfilter kategori, atau mencari produk.</li>
+                            <li><strong class="text-slate-800">2.</strong> Membuka detail produk dan menambahkan ke keranjang.</li>
+                            <li><strong class="text-slate-800">3.</strong> Mengisi form checkout (nama, nomor HP, email, alamat).</li>
+                            <li><strong class="text-slate-800">4.</strong> Menerima kode order unik setelah pesanan tersimpan.</li>
+                            <li><strong class="text-slate-800">5.</strong> Melacak status pesanan kapan saja lewat kode order.</li>
+                        </ol>
+                    </div>
+                    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                        <p class="flex items-center gap-2 text-sm font-bold text-slate-900">
+                            <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-50 text-amber-600">ðŸ› ï¸</span>
+                            Admin
+                        </p>
+                        <ol class="mt-3 space-y-2 text-xs leading-relaxed text-slate-600">
+                            <li><strong class="text-slate-800">1.</strong> Login memakai akun admin yang sudah di-seed.</li>
+                            <li><strong class="text-slate-800">2.</strong> Mengelola produk dan kategori, termasuk upload foto dan stok.</li>
+                            <li><strong class="text-slate-800">3.</strong> Memproses pesanan dan memperbarui statusnya.</li>
+                            <li><strong class="text-slate-800">4.</strong> Melihat laporan penjualan per periode.</li>
+                            <li><strong class="text-slate-800">5.</strong> Menyetujui atau menghapus testimoni pelanggan.</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            {{-- 9. ERD --}}
+            <section id="erd" class="scroll-mt-24">
+                <div class="mb-4 flex items-center gap-3">
+                    <span class="font-mono text-xs font-bold text-indigo-600">09</span>
+                    <h2 class="text-2xl font-extrabold tracking-tight text-slate-900">ERD &amp; Rancangan Data</h2>
+                    <div class="h-px flex-1 bg-gradient-to-r from-indigo-200 to-transparent"></div>
+                </div>
+                <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-slate-200 text-left text-sm">
+                            <thead class="bg-slate-50 text-xs uppercase tracking-wider text-slate-500">
+                                <tr>
+                                    <th scope="col" class="px-4 py-3">Tabel</th>
+                                    <th scope="col" class="px-4 py-3">Kolom Penting</th>
+                                    <th scope="col" class="px-4 py-3">Relasi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="align-top">
+                                    <td class="px-4 py-3 font-mono text-xs font-semibold text-indigo-700">categories</td>
+                                    <td class="px-4 py-3 text-slate-600">name, slug (unik), description</td>
+                                    <td class="px-4 py-3 text-slate-600">1 â†’ N products</td>
+                                </tr>
+                                <tr class="align-top">
+                                    <td class="px-4 py-3 font-mono text-xs font-semibold text-indigo-700">products</td>
+                                    <td class="px-4 py-3 text-slate-600">category_id, name, slug, price, stock, image, is_active</td>
+                                    <td class="px-4 py-3 text-slate-600">N â†’ 1 categories, 1 â†’ N order_items</td>
+                                </tr>
+                                <tr class="align-top">
+                                    <td class="px-4 py-3 font-mono text-xs font-semibold text-indigo-700">orders</td>
+                                    <td class="px-4 py-3 text-slate-600">order_code (unik), data pemesan, total, status</td>
+                                    <td class="px-4 py-3 text-slate-600">1 â†’ N order_items</td>
+                                </tr>
+                                <tr class="align-top">
+                                    <td class="px-4 py-3 font-mono text-xs font-semibold text-indigo-700">order_items</td>
+                                    <td class="px-4 py-3 text-slate-600">order_id, product_id, product_name, price, quantity, subtotal</td>
+                                    <td class="px-4 py-3 text-slate-600">N â†’ 1 orders, N â†’ 1 products</td>
+                                </tr>
+                                <tr class="align-top">
+                                    <td class="px-4 py-3 font-mono text-xs font-semibold text-indigo-700">testimonials</td>
+                                    <td class="px-4 py-3 text-slate-600">name, message, rating, is_approved</td>
+                                    <td class="px-4 py-3 text-slate-600">berdiri sendiri</td>
+                                </tr>
+                                <tr class="align-top">
+                                    <td class="px-4 py-3 font-mono text-xs font-semibold text-indigo-700">users</td>
+                                    <td class="px-4 py-3 text-slate-600">name, email (unik), password, is_admin</td>
+                                    <td class="px-4 py-3 text-slate-600">menentukan akses area admin</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <p class="mt-3 text-xs text-slate-500">
+                    Detail lengkap relasi dan diagram tersedia di
+                    <a href="https://github.com/Central-Saga/Rangga-Project2-KatalogProduk/blob/main/docs/ERD.md" class="font-semibold text-indigo-600 underline-offset-2 hover:underline">docs/ERD.md</a>.
+                </p>
+            </section>
+
+            {{-- 10. STATUS --}}
+            <section id="status" class="scroll-mt-24">
+                <div class="mb-4 flex items-center gap-3">
+                    <span class="font-mono text-xs font-bold text-indigo-600">10</span>
+                    <h2 class="text-2xl font-extrabold tracking-tight text-slate-900">Status &amp; Rencana</h2>
+                    <div class="h-px flex-1 bg-gradient-to-r from-indigo-200 to-transparent"></div>
+                </div>
+                <div class="rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50/70 to-white p-5 shadow-sm">
+                    <p class="flex items-center gap-2 text-sm font-bold text-emerald-800">
+                        <span class="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-600 text-xs text-white">âœ“</span>
+                        Semua kebutuhan inti sudah diimplementasikan
+                    </p>
+                    <ul class="mt-3 grid gap-2 text-xs leading-relaxed text-slate-600 sm:grid-cols-2">
+                        <li>âœ… Katalog + filter + pencarian</li>
+                        <li>âœ… Keranjang berbasis session</li>
+                        <li>âœ… Checkout tanpa WhatsApp</li>
+                        <li>âœ… Pelacakan pesanan via kode order</li>
+                        <li>âœ… Dashboard admin dengan role guard</li>
+                        <li>âœ… CRUD produk, kategori, testimoni</li>
+                        <li>âœ… Laporan penjualan</li>
+                        <li>âœ… Feature test otomatis + CI</li>
+                    </ul>
+                </div>
+                <div class="mt-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                    <p class="text-sm font-bold text-slate-900">Rencana pengembangan berikutnya</p>
+                    <ul class="mt-2 space-y-1.5 text-xs leading-relaxed text-slate-600">
+                        <li>â€¢ Pembayaran online (payment gateway) dan notifikasi email.</li>
+                        <li>â€¢ Multi-gambar produk serta varian ukuran/warna.</li>
+                        <li>â€¢ Export laporan ke PDF/Excel dan grafik tren penjualan.</li>
+                    </ul>
+                </div>
+            </section>
+
+        </div>
+    </div>
+@endsection
