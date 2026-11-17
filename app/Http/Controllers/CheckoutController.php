@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CheckoutRequest;
 use App\Models\Order;
 use App\Models\Product;
 use App\Support\Cart;
@@ -13,10 +14,6 @@ class CheckoutController extends Controller
 {
     public function create()
     {
-        if (! auth()->check()) {
-            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu untuk melanjutkan checkout.');
-        }
-
         $cart = Cart::detailed();
 
         if (empty($cart['items'])) {
@@ -27,7 +24,7 @@ class CheckoutController extends Controller
         return view('checkout.create', ['cart' => $cart]);
     }
 
-    public function store(\App\Http\Requests\CheckoutRequest $request)
+    public function store(CheckoutRequest $request)
     {
         $cart = Cart::detailed();
 
@@ -95,7 +92,7 @@ class CheckoutController extends Controller
     protected function generateOrderCode(): string
     {
         do {
-            $code = 'INV-' . now()->format('Ymd') . '-' . strtoupper(Str::random(4));
+            $code = 'INV-'.now()->format('Ymd').'-'.strtoupper(Str::random(4));
         } while (Order::where('order_code', $code)->exists());
 
         return $code;
